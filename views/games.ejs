@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Games - Release Radar</title>
+    <% include partials/headIncludes.ejs %>
+  </head>
+  <body>
+    <% include partials/nav.ejs %>
+
+
+      <h1>Games</h1>
+      <div id="gameList">
+        <% games.sort(function(a, b){
+          return b.date.localeCompare(a.date);
+        }).forEach(function(game){ %>
+          <div class="item">
+            <h1><%= game.title %></h1>
+            <p>Producer</p>
+            <h2><%= game.studio %></h2>
+            <p>Publisher</p>
+            <h2><%= game.publisher %></h2>
+            <p>Release date</p>
+            <h2><%= game.date %></h2>
+          </div>
+        <% }) %>
+      </div>
+
+    <% include partials/footer.ejs %>
+  </body>
+
+</html>

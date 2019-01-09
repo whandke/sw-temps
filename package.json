@@ -1,0 +1,25 @@
+{
+  "name": "radar",
+  "version": "0.1.0",
+  "description": "Server for Release Radar website",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "games",
+    "release",
+    "radar",
+    "application",
+    "website"
+  ],
+  "author": "whandke",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.14",
+    "serve-favicon": "^2.5.0"
+  }
+}

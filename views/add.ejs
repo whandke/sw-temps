@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Games - Release Radar</title>
+    <% include partials/headIncludes.ejs %>
+  </head>
+  <body>
+    <% include partials/nav.ejs %>
+
+
+      <h1>Add new game</h1>
+      <div class="newGameForm">
+          <form action="/add" method="POST">
+            <label for="title">Game title</label>
+            <input type="text" placeholder="Write game title here..." name="title">
+            <label for="title">Studio name</label>
+            <input type="text" placeholder="Write studio name here..." name="studio">
+            <label for="title">Publisher name</label>
+            <input type="text" placeholder="Write a publisher name here..." name="publisher">
+            <label for="title">Date of release</label>
+            <input type="text" placeholder="YYYY-MM-DD" name="date">
+            <button type="submit">Add</button>    
+          </form>
+      </div>
+
+    <% include partials/footer.ejs %>
+  </body>
+
+</html>
