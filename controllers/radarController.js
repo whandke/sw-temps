@@ -1,74 +1,60 @@
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const fs = require('fs');
+var isodate = require("isodate");
 
 let keys = JSON.parse(fs.readFileSync(__dirname + '/../keys.json', 'utf8'));
 
-mongoose.connect(`mongodb://${keys.mlab.test.user}:${keys.mlab.test.password}@ds129926.mlab.com:29926/radar`, function(err){
+mongoose.connect(`mongodb://${keys.mlab.test.user}:${keys.mlab.test.password}@ds149414.mlab.com:49414/sw`,
+ function(err){
   if(err) {
     console.log('Coś poszło nie tak przy połączeniu :c');
     throw err;
   }
 })
 
-let gameSchema = new mongoose.Schema({
-  title: String,
-  studio: String,
-  publisher: String,
-  date: String
+let tempSchema = new mongoose.Schema({
+  temps: [[{type: String}, {type: String}]],
+  time: Date
 })
 
-let Games = mongoose.model('Game', gameSchema);
+let temps = mongoose.model('temp', tempSchema, 'test');
 
 module.exports = function(app){
 
   app.get('/', function(req, res){
-      res.render('index');
-  })
-      
-  app.get('/home', function(req, res){
-      res.redirect('/');
+    console.log('[INFO] GET ' + req.path)
+    res.render('index')
   })
 
-  app.get('/games', function(req, res){
-    if(req.query.search){
-      Games.find({title: new RegExp(req.query.search, "i")}, function(err, data){
-        if(err) throw err;
-        res.render('games', {games: data});
+  app.get('/api/temps/last', function(req, res){
+    console.log('[INFO] GET ' + req.path)
+    res.setHeader('Content-Type', 'application/json')
+    temps.findOne({}, {}, {sort: { 'time' : -1 }}, function(err, readout){
+      res.send({temps: readout.temps})
+    })
+  })
+
+  app.get('/api/temps/:seconds', function(req, res){
+    console.log('[INFO] GET ' + req.path)
+    res.setHeader('Content-Type', 'application/json')
+    temps.find({}, function(err, readouts){
+      let result = []
+      readouts.forEach(function(readout){
+        let now = new Date()
+        after = now.getTime() - 1000 * req.params.seconds
+        if(readout.time.getTime() > after) {
+          result.push({temps: readout.temps, time: readout.time}) 
+        }   
       })
-    }
-    else {
-      Games.find({}, function(err, data){
-        if(err) throw err;
-        res.render('games', {games: data});
-      })
-    }
-    
-  })
-
-  app.get('/add', function(req, res){
-    res.render('add');
-  })
-
-  app.post('/add', function(req, res){
-    let newGame = Games(req.body).save(function(err, data){
-      if(err) throw err;
-      res.render('games');
+      res.send({readouts: result})
     })
   })
       
-  app.get('/contact', function(req, res){
-    res.render('contact');
-  })
-
-  app.get('/about', function(req, res){
-    res.render('about');
-  })
-      
   app.get('*', function(req, res){
-    console.log('Unhandled request was made: ' + req.path);
-    console.log('Sending 404 page...');
-    res.render('404');
+    console.log('[INFO] Unhandled request was made: ' + req.path)
+    console.log('[INFO] Sending 404 page...')
+    res.render('404')
   })
 
 }
