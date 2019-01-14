@@ -36,7 +36,8 @@
         spanGaps: true,
         radius: 0
         }]};
-                
+        
+        Chart.defaults.global.defaultFontColor = "#aaaaaa";
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -47,12 +48,21 @@
                 responsiveAnimationDuration: 0,
                 scales: {
                     yAxes: [{
+                        fontColor: "#aaaaaa",
+                        gridLines: {
+                            color: "#aaaaaa"
+                        },
                         ticks: {
                             sugestedMin: 10,
-                            sugestedMax: 50
+                            sugestedMax: 50,
+                            min: 10,
+                            max: 50
                         }
                     }],
                     xAxes: [{
+                        gridLines: {
+                            color: "#aaaaaa"
+                        },
                         type: 'time',
                         distribution: 'series',
                         time: {

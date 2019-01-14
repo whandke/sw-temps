@@ -1,9 +1,9 @@
 body {
     font-family: 'Roboto', 'sans-serif';
     color: #000000;
-    padding: 63px 30px 52px 30px;
+    padding: 5px 30px 52px 30px;
     margin: 0;
-
+    background-image: url("../assets/prism.png");
 }
 
 .row {
@@ -28,6 +28,7 @@ body {
     background-image: url("../assets/laptop.jpg");
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    border-radius: 25px;
 }
 
 .full {
@@ -50,4 +51,35 @@ body {
 .temp {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 3px 5px 3px 5px;
+    border-radius: 5px;
+}
+
+#main {
+    background-color: rgba(255, 255, 255, .3);
+    border-radius: 5px;
+}
+
+#red {
+    border-top-left-radius: 25px;
+}
+
+#gold {
+    border-top-right-radius: 25px;
+}
+
+#green {
+    border-bottom-left-radius: 25px;
+}
+
+#yellow {
+    border-bottom-right-radius: 25px;
+}
+
+#title {
+    width: 100%;
+    margin-top: 0;
+}
+
+h1 {
+    color: #777777
 }
