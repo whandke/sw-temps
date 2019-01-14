@@ -1,0 +1,112 @@
+<script type="module">
+        import 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js'
+
+        var data = {
+        labels: [],
+        datasets: [{
+        label: "Red",
+        fill: false,
+        lineTension: 0,
+        borderColor: "red",
+        data: [],
+        spanGaps: true,
+        radius: 0
+        }, {
+        label: "Green",
+        fill: false,
+        lineTension: 0,
+        borderColor: "green",
+        data: [],
+        spanGaps: true,
+        radius: 0
+        }, {
+        label: "Gold",
+        fill: false,
+        lineTension: 0,
+        borderColor: "gold",
+        data: [],
+        spanGaps: true,
+        radius: 0
+        }, {
+        label: "Yellow",
+        fill: false,
+        lineTension: 0,
+        borderColor: "yellow",
+        data: [],
+        spanGaps: true,
+        radius: 0
+        }]};
+                
+        var ctx = document.getElementById("myChart");
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                animation: { duration: 0 },
+                hover: { animationDuration: 0 },
+                responsiveAnimationDuration: 0,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }],
+                    xAxes: [{
+                        type: 'time',
+                        distribution: 'series',
+                        time: {
+                            displayFormats: {
+                                seconds: 'hh:mm:ss'
+                            }
+                        },
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+
+        function createDataset(data, color) {
+            return {
+                label: color,
+                fill: false,
+                lineTension: 0,
+                borderColor: color,
+                data: data,
+                spanGaps: true,
+                radius: 0,
+                hitRadius: 0
+            }
+        }
+
+        function update(){
+            fetch("http://localhost:3000/api/temps/last")
+                .then(response => response.json()
+                .then(response => {
+                    document.getElementById("redText").innerHTML = response.last.red.sensor_temp;
+                    document.getElementById("greenText").innerHTML = response.last.green.sensor_temp;
+                    document.getElementById("yellowText").innerHTML = response.last.yellow.sensor_temp;
+                    document.getElementById("goldText").innerHTML = response.last.gold.sensor_temp;
+
+                    document.getElementById("red").style.backgroundColor = "blue";
+                    //document.getElementById("green").innerHTML = response.last.green.sensor_temp;
+                    //document.getElementById("yellow").innerHTML = response.last.yellow.sensor_temp;
+                    //document.getElementById("gold").innerHTML = response.last.gold.sensor_temp;
+                }))
+
+            fetch("http://localhost:3000/api/temps/300")
+                .then(response => response.json())
+                .then(response => {
+                    myChart.data.labels = response.time;
+                    myChart.data.datasets = [];
+                    myChart.data.datasets.push(createDataset(response.series.red, "red"));
+                    myChart.data.datasets.push(createDataset(response.series.gold, "gold"));
+                    myChart.data.datasets.push(createDataset(response.series.green, "green"));
+                    myChart.data.datasets.push(createDataset(response.series.yellow, "yellow"));
+                    myChart.update();
+                })
+
+        }
+        let timerId = setInterval(update, 1000);
+    </script>

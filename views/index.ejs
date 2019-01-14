@@ -1,21 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Release Radar</title>
-    <% include partials/headIncludes.ejs %>
+    <%- include partials/headIncludes.ejs %>
+    <%- include partials/chart.ejs %>
+    <title>SW - Temps</title>    
   </head>
   <body>
-
-      <h1>Release Radar</h1>
-      <p>Best site to keep track of game releases!</p>
-
-      <div class="search-container">
-        <form action="/games">
-          <input type="text" placeholder="Search.." name="search">
-        </form>
+      <div class="row">
+          <div class="half">
+              <div class="background full">
+                  <div class="row half full">
+                      <div id="red" class="half full centered">
+                          <div id="redText" class="temp">
+                              -
+                          </div>
+                      </div>
+                      <div id="gold" class="half full centered">
+                            <div id="goldText" class="temp">
+                                -
+                            </div>
+                      </div>
+                  </div>
+                  <div class="row half full">
+                        <div id="green" class="half full centered">
+                            <div id="greenText" class="temp">
+                                -
+                            </div>
+                        </div>
+                        <div id="yellow" class="half full centered">
+                            <div id="yellowText" class="temp">
+                                -
+                            </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+          <div class="half">
+                <canvas id="myChart"></canvas>
+          </div>
       </div>
-
-    <% include partials/footer.ejs %>
   </body>
-
 </html>

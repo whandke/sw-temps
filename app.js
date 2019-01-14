@@ -2,7 +2,7 @@ const fs = require('fs');
 const http = require('http');
 const express = require('express');
 const favicon = require('serve-favicon');
-const radarController = require('./controllers/radarController');
+const controller = require('./controllers/controller');
 
 console.log('Getting started!');
 
@@ -18,7 +18,7 @@ app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 
 //Fire up controllers
-radarController(app);
+controller(app);
 
 //Listen to port
 app.listen(app.get('port'), function(){
