@@ -48,7 +48,8 @@
                 scales: {
                     yAxes: [{
                         ticks: {
-                            beginAtZero:true
+                            sugestedMin: 10,
+                            sugestedMax: 50
                         }
                     }],
                     xAxes: [{
@@ -58,9 +59,6 @@
                             displayFormats: {
                                 seconds: 'hh:mm:ss'
                             }
-                        },
-                        ticks: {
-                            beginAtZero:true
                         }
                     }]
                 }
@@ -89,10 +87,9 @@
                     document.getElementById("yellowText").innerHTML = response.last.yellow.sensor_temp;
                     document.getElementById("goldText").innerHTML = response.last.gold.sensor_temp;
 
+                    document.body.style.backgroundColor = 'blue';
+
                     document.getElementById("red").style.backgroundColor = "blue";
-                    //document.getElementById("green").innerHTML = response.last.green.sensor_temp;
-                    //document.getElementById("yellow").innerHTML = response.last.yellow.sensor_temp;
-                    //document.getElementById("gold").innerHTML = response.last.gold.sensor_temp;
                 }))
 
             fetch("http://localhost:3000/api/temps/300")

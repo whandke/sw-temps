@@ -129,10 +129,6 @@ module.exports = function(app){
       let now = new Date();
       let after = now.getTime() - 1000 * req.params.seconds;
 
-      console.log('Now:   ' + now.getTime());
-      console.log('Param: ' + req.params.seconds);
-      console.log('After: ' + after);
-
       readouts.forEach(function(readout){
         if(readout.time.getTime() > after) {
           result.push({temps: readout.temps, time: readout.time}) 
