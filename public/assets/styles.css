@@ -52,6 +52,9 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 3px 5px 3px 5px;
     border-radius: 5px;
+    font-weight: 100;
+    font-size: 25px;
+    color: #000000;
 }
 
 #main {
@@ -81,5 +84,25 @@ body {
 }
 
 h1 {
-    color: #777777
+    color: #aaaaaa;
+    font-weight: 100;
+    font-size: 50px;
+    letter-spacing: -2px;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #aaaaaa;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 100;
 }

@@ -1,15 +1,15 @@
 {
-  "name": "radar",
-  "version": "0.1.0",
-  "description": "Server for Release Radar website",
+  "name": "MEC",
+  "version": "1.0.0",
+  "description": "Server for MEC embedded system",
   "main": "app.js",
   "scripts": {
     "start": "node app.js"
   },
   "keywords": [
-    "games",
-    "release",
-    "radar",
+    "embedded",
+    "hardware",
+    "mec",
     "application",
     "website"
   ],

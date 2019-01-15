@@ -1,43 +1,10 @@
 <script type="module">
         import 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js'
 
-        var data = {
-        labels: [],
-        datasets: [{
-        label: "Red",
-        fill: false,
-        lineTension: 0,
-        borderColor: "red",
-        data: [],
-        spanGaps: true,
-        radius: 0
-        }, {
-        label: "Green",
-        fill: false,
-        lineTension: 0,
-        borderColor: "green",
-        data: [],
-        spanGaps: true,
-        radius: 0
-        }, {
-        label: "Gold",
-        fill: false,
-        lineTension: 0,
-        borderColor: "gold",
-        data: [],
-        spanGaps: true,
-        radius: 0
-        }, {
-        label: "Yellow",
-        fill: false,
-        lineTension: 0,
-        borderColor: "yellow",
-        data: [],
-        spanGaps: true,
-        radius: 0
-        }]};
+        var data = {};
         
-        Chart.defaults.global.defaultFontColor = "#aaaaaa";
+        Chart.defaults.global.defaultFontColor = "#bbbbbb";
+        Chart.defaults.global.defaultFontFamily = "'Roboto', 'sans-serif'";
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'line',
@@ -48,6 +15,10 @@
                 responsiveAnimationDuration: 0,
                 scales: {
                     yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Temperatura [°C]'
+                        },
                         fontColor: "#aaaaaa",
                         gridLines: {
                             color: "#aaaaaa"
@@ -60,6 +31,10 @@
                         }
                     }],
                     xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Czas'
+                        },
                         gridLines: {
                             color: "#aaaaaa"
                         },
@@ -67,7 +42,7 @@
                         distribution: 'series',
                         time: {
                             displayFormats: {
-                                seconds: 'hh:mm:ss'
+                                minute: 'hh:mm'
                             }
                         }
                     }]
@@ -92,21 +67,22 @@
             fetch("http://localhost:3000/api/temps/last")
                 .then(response => response.json()
                 .then(response => {
+                    let colorAfter = ", 100%, 50%, .33)"
                     if(response.last.red != null){
-                        document.getElementById("redText").innerHTML = response.last.red.sensor_temp;
-                        document.getElementById("red").style.backgroundColor = "hsla(" + response.last.red.hue + ", 100%, 50%, .33)";
+                        document.getElementById("redText").innerHTML = "Red: " + response.last.red.sensor_temp + "°C";
+                        document.getElementById("red").style.backgroundColor = "hsla(" + response.last.red.hue + colorAfter;
                     }
                     if(response.last.green != null){
-                        document.getElementById("greenText").innerHTML = response.last.green.sensor_temp;
-                        document.getElementById("green").style.backgroundColor = "hsla(" + response.last.green.hue + ", 100%, 50%, .33)";
+                        document.getElementById("greenText").innerHTML = "Green: " + response.last.green.sensor_temp + "°C";
+                        document.getElementById("green").style.backgroundColor = "hsla(" + response.last.green.hue + colorAfter;
                     }                        
                     if(response.last.yellow != null){
-                        document.getElementById("yellowText").innerHTML = response.last.yellow.sensor_temp;
-                        document.getElementById("yellow").style.backgroundColor = "hsla(" + response.last.yellow.hue + ", 100%, 50%, .33)";
+                        document.getElementById("yellowText").innerHTML = "Yellow: " + response.last.yellow.sensor_temp + "°C";
+                        document.getElementById("yellow").style.backgroundColor = "hsla(" + response.last.yellow.hue + colorAfter;
                     }                        
                     if(response.last.gold != null){
-                        document.getElementById("goldText").innerHTML = response.last.gold.sensor_temp;
-                        document.getElementById("gold").style.backgroundColor = "hsla(" + response.last.gold.hue + ", 100%, 50%, .33)";
+                        document.getElementById("goldText").innerHTML = "Gold: " + response.last.gold.sensor_temp + "°C";
+                        document.getElementById("gold").style.backgroundColor = "hsla(" + response.last.gold.hue + colorAfter;
                     }                        
                 }))
 
